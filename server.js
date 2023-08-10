@@ -5,10 +5,16 @@ const fruitRoutes = require('./routes/fruitRoutes')
 const meatRoutes = require('./routes/meatRoutes')
 const vegetableRoutes = require('./routes/vegetableRoutes')
 const jsxEngine = require('jsx-view-engine')
+const methodOverride = require('method-override')
 
 app.set('view engine', 'jsx')
 
 app.engine('jsx', jsxEngine());
+
+app.use(methodOverride('_method'))
+
+// A middleware that formats the data into an object we can use on req.body
+app.use(express.urlencoded({ extended: true }))
 
 // .use is for middlewear
 app.use('/fruits', fruitRoutes);
